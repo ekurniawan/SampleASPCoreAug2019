@@ -12,5 +12,10 @@ namespace SampleASPCore.Controllers
         {
             return View();
         }
+
+        public IActionResult About()
+        {
+            return Content("About");
+        }
     }
 }
