@@ -5,8 +5,8 @@ using System.Text;
 
 namespace DAL
 {
-    public interface ICustomer
+    public interface ICustomer:ICrud<Customer>
     {
-        IEnumerable<Customer> GetAllCustomer();
+        IEnumerable<Customer> GetByNama(string nama);
     }
 }

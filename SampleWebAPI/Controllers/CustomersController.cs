@@ -23,14 +23,21 @@ namespace SampleWebAPI.Controllers
         [HttpGet]
         public IEnumerable<Customer> Get()
         {
-            return _customer.GetAllCustomer();
+            return _customer.GetAll();
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public IActionResult Get(string id)
         {
-            return "value";
+            try
+            {
+                return Ok(_customer.GetById(id));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest($"Kesalahan: {ex.Message}");
+            }
         }
 
         // POST: api/Customers

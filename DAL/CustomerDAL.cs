@@ -2,19 +2,54 @@
 using System.Collections.Generic;
 using System.Text;
 using BO;
+using System.Linq;
 
 namespace DAL
 {
     public class CustomerDAL : ICustomer
     {
-        public IEnumerable<Customer> GetAllCustomer()
+        public void Delete(string id)
         {
-            List<Customer> lstCustomer = new List<Customer>
+            throw new NotImplementedException();
+        }
+
+        public static List<Customer> lstCustomer = new List<Customer>
             {
-                new Customer{CustomerID="CC01",CustomerName="Budi",Address="Jl Rajawali"},
-                new Customer{CustomerID="CC02",CustomerName="Erick",Address="Jl Merdeka"}
+                new Customer{CustomerID=Guid.NewGuid().ToString(),CustomerName="Budi",Address="Jl Rajawali"},
+                new Customer{CustomerID=Guid.NewGuid().ToString(),CustomerName="Erick",Address="Jl Merdeka"}
             };
+
+        public IEnumerable<Customer> GetAll()
+        {
             return lstCustomer;
+        }
+
+        public Customer GetById(string id)
+        {
+            var cust = lstCustomer.Where(l => l.CustomerID == id).SingleOrDefault();
+            if (cust != null)
+            {
+                return cust;
+            }
+            else
+            {
+                throw new Exception("Data Tidak Ditemukan !");
+            }
+        }
+
+        public IEnumerable<Customer> GetByNama(string nama)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Customer obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Customer obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }
