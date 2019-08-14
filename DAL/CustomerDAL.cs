@@ -44,7 +44,7 @@ namespace DAL
 
         public void Insert(Customer obj)
         {
-            throw new NotImplementedException();
+            lstCustomer.Add(obj);
         }
 
         public void Update(Customer obj)

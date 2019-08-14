@@ -43,8 +43,10 @@ namespace SampleWebAPI.Controllers
 
         // POST: api/Customers
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Customer customer)
         {
+            _customer.Insert(customer);
+            return Ok("Data Customer berhasil ditambah !");
         }
 
         // PUT: api/Customers/5
