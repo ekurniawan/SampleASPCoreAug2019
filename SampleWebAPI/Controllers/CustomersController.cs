@@ -9,6 +9,7 @@ using DAL;
 
 namespace SampleWebAPI.Controllers
 {
+    //docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/?view=aspnetcore-2.1
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
