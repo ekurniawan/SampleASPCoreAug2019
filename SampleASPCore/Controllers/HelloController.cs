@@ -18,6 +18,11 @@ namespace SampleASPCore.Controllers
             return Content("About");
         }
 
+        public IActionResult Contact()
+        {
+            return Content("Contact");
+        }
+
         public IActionResult Tentang()
         {
             return Content("tentang aplikasi ini");
