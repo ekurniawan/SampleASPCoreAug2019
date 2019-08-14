@@ -22,5 +22,10 @@ namespace SampleASPCore.Controllers
         {
             return Content("Contact");
         }
+
+        public IActionResult Tentang()
+        {
+            return Content("tentang aplikasi ini");
+        }
     }
 }
