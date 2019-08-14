@@ -14,14 +14,21 @@ namespace SampleWebAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "Erick", "Budi", "Bambang" };
+        }
+
+        [HttpGet("GetAlamat")]
+        public ActionResult<IEnumerable<string>> GetAlamat()
+        {
+            var alamat = new string[] { "Jl Rajawali", "Jl Merdeka" };
+            return alamat;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            return $"ID anda adalah: {id}";
         }
 
         // POST api/values
