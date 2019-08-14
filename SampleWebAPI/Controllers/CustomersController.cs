@@ -23,7 +23,7 @@ namespace SampleWebAPI.Controllers
         [HttpGet]
         public IEnumerable<Customer> Get()
         {
-            return _customer.GetAllCustomer();
+            return _customer.GetAll();
         }
 
         // GET: api/Customers/5
