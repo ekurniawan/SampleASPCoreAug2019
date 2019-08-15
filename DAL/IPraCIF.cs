@@ -7,6 +7,6 @@ namespace DAL
 {
     public interface IPraCIF:ICrud<PraCIF>
     {
-
+        IEnumerable<PraCIF> GetByName(string name);
     }
 }

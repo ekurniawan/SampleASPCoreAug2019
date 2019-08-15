@@ -21,9 +21,9 @@ namespace SampleWebAPI.Controllers
 
         // GET: api/PraCIF
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<PraCIF> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _praCIF.GetAll();
         }
 
         // GET: api/PraCIF/5
