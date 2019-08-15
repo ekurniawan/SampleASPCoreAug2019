@@ -92,12 +92,66 @@ namespace DAL
 
         public void Update(PraContract obj)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(GetConnString()))
+            {
+                string strsql = @"Update PraContract 
+                                SET Comp_ID = @Comp_ID, CIF_No=@CIF_No, ApplicationNo=@ApplicationNo
+                                WHERE ID = @ID";
+                SqlCommand cmd = new SqlCommand(strsql, conn);
+                cmd.Parameters.AddWithValue("@ID", obj.ID);
+                cmd.Parameters.AddWithValue("@CIF_No", obj.CIF_No);
+                cmd.Parameters.AddWithValue("@Comp_ID", obj.Comp_ID);
+                cmd.Parameters.AddWithValue("@ApplicationNo", obj.ApplicationNo);
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException sqlEx)
+                {
+                    throw new Exception($"Kesalahan: {sqlEx.Number}  Message: {sqlEx.Message}");
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    conn.Close();
+                }
+            }
         }
 
         public IEnumerable<PraContract> GetByName(string name)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(GetConnString()))
+            {
+                List<PraContract> listPraContract = new List<PraContract>();
+                string strsql = @"SELECT Comp_ID, ID, CIF_No, ApplicationNo FROM PraContract 
+                                WHERE ApplicationNo like @ApplicationNo order By ApplicationNo asc";
+                SqlCommand cmd = new SqlCommand(strsql, conn);
+                cmd.Parameters.AddWithValue("@ApplicationNo", $"%{name}%");
+
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        PraContract objPraContract = new PraContract
+                        {
+                            Comp_ID = dr["Comp_ID"].ToString(),
+                            CIF_No = dr["CIF_No"].ToString(),
+                            ID = dr["ID"].ToString(),
+                            ApplicationNo = dr["ApplicationNo"].ToString()
+                        };
+                        listPraContract.Add(objPraContract);
+                    }
+                }
+                dr.Close();
+                cmd.Dispose();
+                conn.Close();
+
+                return listPraContract;
+
+            }
         }
     }
 }

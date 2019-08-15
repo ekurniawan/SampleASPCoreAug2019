@@ -26,6 +26,12 @@ namespace SampleWebAPI.Controllers
             return _praContract.GetAll();
         }
 
+        [HttpGet("GetByName/{name}")]
+        public IEnumerable<PraContract> GetByName(string name)
+        {
+            return _praContract.GetByName(name);
+        }
+
         // GET: api/PraContract/5
         [HttpGet("{id}")]
         public string Get(int id)
@@ -49,9 +55,18 @@ namespace SampleWebAPI.Controllers
         }
 
         // PUT: api/PraContract/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult Put([FromBody] PraContract praContract)
         {
+            try
+            {
+                _praContract.Update(praContract);
+                return Ok("Berhasil Update PraContract");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Kesalahan: {ex.Message}");
+            }
         }
 
         // DELETE: api/ApiWithActions/5
