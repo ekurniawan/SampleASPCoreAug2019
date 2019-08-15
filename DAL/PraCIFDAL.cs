@@ -102,7 +102,41 @@ namespace DAL
 
         public IEnumerable<PraCIF> GetByName(string name)
         {
-            throw new NotImplementedException();
+            List<PraCIF> lstPraCIF = new List<PraCIF>();
+            using (SqlConnection conn = new SqlConnection(GetConnString()))
+            {
+                string strSql = @"
+                    SELECT ID,Comp_ID,CIF_No,CIF_Name,CIF_Address,NoHP
+                    FROM PraCIF
+                    WHERE CIF_Name like @CIF_Name
+                    ORDER BY CIF_Name asc";
+                SqlCommand cmd = new SqlCommand(strSql, conn);
+                cmd.Parameters.AddWithValue("@CIF_Name", $"%{name}%");
+
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        PraCIF objPraCIF = new PraCIF
+                        {
+                            ID = dr["ID"].ToString(),
+                            Comp_ID = dr["Comp_ID"].ToString(),
+                            CIF_No = dr["CIF_No"].ToString(),
+                            CIF_Name = dr["CIF_Name"].ToString(),
+                            CIF_Address = dr["CIF_Address"].ToString(),
+                            NoHP = dr["NoHP"].ToString()
+                        };
+                        lstPraCIF.Add(objPraCIF);
+                    }
+                }
+                dr.Close();
+                cmd.Dispose();
+                conn.Close();
+
+                return lstPraCIF;
+            }
         }
     }
 }

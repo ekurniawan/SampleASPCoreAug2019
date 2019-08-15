@@ -26,6 +26,13 @@ namespace SampleWebAPI.Controllers
             return _praCIF.GetAll();
         }
 
+        // GET: api/PraCIF/GetByName
+        [HttpGet("GetByName/{name}")]
+        public IEnumerable<PraCIF> GetByName(string name)
+        {
+            return _praCIF.GetByName(name);
+        }
+
         // GET: api/PraCIF/5
         [HttpGet("{id}")]
         public string Get(int id)
