@@ -68,8 +68,9 @@ namespace DAL
         {
             using (SqlConnection conn = new SqlConnection(GetConnString()))
             {
-                string strSql = @"insert into PraCIF(Id,Comp_ID,CIF_No,CIF_Name,CIF_Address,NoHP) 
-                   values(@Id,@Comp_ID,@CIF_No,@CIF_Name,@CIF_Address,@NoHP)";
+                string strSql = @"
+                    INSERT INTO PraCIF(Id,Comp_ID,CIF_No,CIF_Name,CIF_Address,NoHP) 
+                    VALUES(@Id,@Comp_ID,@CIF_No,@CIF_Name,@CIF_Address,@NoHP)";
                 SqlCommand cmd = new SqlCommand(strSql, conn);
                 cmd.Parameters.AddWithValue("@Id", Guid.NewGuid().ToString());
                 cmd.Parameters.AddWithValue("@CIF_No", obj.CIF_No);
