@@ -7,5 +7,6 @@ namespace DAL
 {
     public interface ICIF : ICrud<CIF>
     {
+        IEnumerable<CIF> GetByName(string name);
     }
 }

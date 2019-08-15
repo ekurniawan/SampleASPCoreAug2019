@@ -74,5 +74,10 @@ namespace DAL
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<CIF> GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
