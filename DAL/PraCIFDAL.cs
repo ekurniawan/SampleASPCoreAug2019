@@ -97,7 +97,33 @@ namespace DAL
 
         public void Update(PraCIF obj)
         {
-            throw new NotImplementedException();
+            using(SqlConnection conn = new SqlConnection(GetConnString()))
+            {
+                string strSql = @"update PraCIF set Comp_ID=@Comp_ID,CIF_No=@CIF_No,
+                    CIF_Name=@CIF_Name,CIF_Address=@CIF_Address,NoHP=@NoHP 
+                    where ID=@ID";
+                SqlCommand cmd = new SqlCommand(strSql, conn);
+                cmd.Parameters.AddWithValue("@ID",obj.ID);
+                cmd.Parameters.AddWithValue("@CIF_No", obj.CIF_No);
+                cmd.Parameters.AddWithValue("@Comp_ID", obj.Comp_ID);
+                cmd.Parameters.AddWithValue("@CIF_Name", obj.CIF_Name);
+                cmd.Parameters.AddWithValue("@CIF_Address", obj.CIF_Address);
+                cmd.Parameters.AddWithValue("@NoHP", obj.NoHP);
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException sqlEx)
+                {
+                    throw new Exception($"Kesalahan: {sqlEx.Number} - {sqlEx.Message}");
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    conn.Close();
+                }
+            }
         }
 
         public IEnumerable<PraCIF> GetByName(string name)

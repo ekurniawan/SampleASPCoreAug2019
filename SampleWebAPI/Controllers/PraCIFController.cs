@@ -56,9 +56,18 @@ namespace SampleWebAPI.Controllers
         }
 
         // PUT: api/PraCIF/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult Put([FromBody] PraCIF praCIF)
         {
+            try
+            {
+                _praCIF.Update(praCIF);
+                return Ok("Berhasil update data PraCIF");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE: api/ApiWithActions/5
