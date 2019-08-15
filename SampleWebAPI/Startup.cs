@@ -28,6 +28,7 @@ namespace SampleWebAPI
         {
             services.AddTransient<ICustomer, CustomerDAL>();
             services.AddTransient<ICIF, CIFDAL>();
+            services.AddTransient<IPraCIF, PraCIFDAL>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

@@ -28,7 +28,7 @@ namespace SampleWebAPI.Controllers
         }
 
         // GET: api/Customers/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
             try

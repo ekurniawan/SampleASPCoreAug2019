@@ -67,7 +67,7 @@ namespace DAL
 
         public void Insert(CIF obj)
         {
-            throw new NotImplementedException();
+           
         }
 
         public void Update(CIF obj)
