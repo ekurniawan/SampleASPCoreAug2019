@@ -8,6 +8,8 @@ namespace DAL
 {
     public class CustomerDAL : ICustomer
     {
+       
+
         public void Delete(string id)
         {
             throw new NotImplementedException();
@@ -18,6 +20,7 @@ namespace DAL
                 new Customer{CustomerID=Guid.NewGuid().ToString(),CustomerName="Budi",Address="Jl Rajawali"},
                 new Customer{CustomerID=Guid.NewGuid().ToString(),CustomerName="Erick",Address="Jl Merdeka"}
             };
+      
 
         public IEnumerable<Customer> GetAll()
         {
