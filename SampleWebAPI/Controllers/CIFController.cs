@@ -26,6 +26,12 @@ namespace SampleWebAPI.Controllers
             return _cif.GetAll();
         }
 
+        [HttpGet("GetByName/{name}")]
+        public IEnumerable<CIF> GetByName(string name)
+        {
+            return _cif.GetByName(name);
+        }
+
         // GET: api/CIF/5
         [HttpGet("{id}")]
         public string Get(int id)
