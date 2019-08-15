@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DAL
 {
-    public class PraContractDAL : PraContract
+    public class PraContractDAL : IPraContract
     {
         private IConfiguration _config;
         public PraContractDAL(IConfiguration config)
@@ -30,7 +30,7 @@ namespace DAL
             List<PraContract> lstPraContract = new List<PraContract>();
             using (SqlConnection conn = new SqlConnection(GetConnString()))
             {
-                string strSql = @"select Comp_ID,CIF_No,ApplicationNo from PraContract order by ApplicationNo asc";
+                string strSql = @"select ID,Comp_ID,CIF_No,ApplicationNo from PraContract order by ApplicationNo asc";
                 SqlCommand cmd = new SqlCommand(strSql, conn);
                 conn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -40,6 +40,7 @@ namespace DAL
                     {
                         PraContract objPraContract = new PraContract
                         {
+                            ID = dr["ID"].ToString(),
                             Comp_ID = dr["Comp_ID"].ToString(),
                             CIF_No = dr["CIF_No"].ToString(),
                             ApplicationNo = dr["ApplicationNo"].ToString()
@@ -62,7 +63,31 @@ namespace DAL
 
         public void Insert(PraContract obj)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(GetConnString()))
+            {
+                string strSql = @"insert into PraContract(ID,Comp_ID,CIF_No,ApplicationNo) 
+                   values(@ID,@Comp_ID,@CIF_No,@ApplicationNo)";
+                SqlCommand cmd = new SqlCommand(strSql, conn);
+                cmd.Parameters.AddWithValue("@ID", Guid.NewGuid().ToString());
+                cmd.Parameters.AddWithValue("@CIF_No", obj.CIF_No);
+                cmd.Parameters.AddWithValue("@Comp_ID", obj.Comp_ID);
+                cmd.Parameters.AddWithValue("@ApplicationNo", obj.ApplicationNo);
+
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException sqlEx)
+                {
+                    throw new Exception($"Kesalahan: {sqlEx.Number}  Message: {sqlEx.Message}");
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    conn.Close();
+                }
+            }
         }
 
         public void Update(PraContract obj)

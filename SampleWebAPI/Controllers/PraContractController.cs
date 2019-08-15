@@ -13,44 +13,51 @@ namespace SampleWebAPI.Controllers
     [ApiController]
     public class PraContractController : ControllerBase
     {
-
-        private IPraContract _pracontract;
-        public PraContractController(IPraContract PraContract)
+        private IPraContract _praContract;
+        public PraContractController(IPraContract praContract)
         {
-            _pracontract = PraContract;
+            _praContract = praContract;
         }
 
         // GET: api/PraContract
         [HttpGet]
         public IEnumerable<PraContract> Get()
         {
-            return _pracontract.GetAll();
+            return _praContract.GetAll();
         }
 
         // GET: api/PraContract/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
-        
+
         // POST: api/PraContract
-        //hello
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] PraContract praContract)
+        {
+            try
+            {
+                _praContract.Insert(praContract);
+                return Ok("Berhasil Tambah Data PraContract");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Kesalahan: {ex.Message}");
+            }
+        }
+
+        // PUT: api/PraContract/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
         {
         }
-        //
-        //// PUT: api/PraContract/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-        //
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
     }
 }
